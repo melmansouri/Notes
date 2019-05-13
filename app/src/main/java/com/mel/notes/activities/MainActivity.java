@@ -1,9 +1,11 @@
-package com.mel.notes;
+package com.mel.notes.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.mel.notes.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -19,6 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.btnlogin})
     public void click(){
-        startActivity(new Intent(this,NotasActivity.class));
+        startActivity(new Intent(this, NotasActivity.class));
     }
 }
