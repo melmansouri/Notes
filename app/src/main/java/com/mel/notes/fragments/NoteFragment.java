@@ -66,7 +66,10 @@ public class NoteFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            //Mostraremos en el listado en formato vertical en caso de que la orientacion sea portrait
+            //Hay otras variaciones como detectar si es de dia o de noche, detectar el tamaño de pantalla como en el else etc..
+            //El sistema operativo es el que gestiona esta carga
+            if (view.getId()==R.id.listPortrait){
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 //Averiguar el tamaño de la pantalla en la que estamos ejecutando la aplicacion
