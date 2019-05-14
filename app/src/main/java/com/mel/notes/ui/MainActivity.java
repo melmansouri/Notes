@@ -1,4 +1,4 @@
-package com.mel.notes.activities;
+package com.mel.notes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.btnlogin})
     public void click(){
-        startActivity(new Intent(this, NotasActivity.class));
+        startActivity(new Intent(this, DashBoardActivity.class));
     }
 }

@@ -1,13 +1,11 @@
-package com.mel.notes.activities;
+package com.mel.notes.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mel.notes.R;
-import com.mel.notes.fragments.NoteFragment;
-import com.mel.notes.interfaces.NotesInteractionListener;
-import com.mel.notes.pojos.Note;
+import com.mel.notes.ui.fragments.NoteFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NotasActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NotesInteractionListener {
+public class DashBoardActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     @BindView(R.id.nav_view)
     BottomNavigationView navView;
@@ -47,20 +45,5 @@ public class NotasActivity extends AppCompatActivity implements BottomNavigation
             getSupportFragmentManager().beginTransaction().replace(R.id.container,f).commit();
         }
         return false;
-    }
-
-    @Override
-    public void editNoteClick(Note note) {
-
-    }
-
-    @Override
-    public void removeNoteClick(Note note) {
-
-    }
-
-    @Override
-    public void favoriteNoteClick(Note note) {
-
     }
 }

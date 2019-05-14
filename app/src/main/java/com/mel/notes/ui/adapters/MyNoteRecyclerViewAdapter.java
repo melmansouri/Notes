@@ -1,5 +1,6 @@
-package com.mel.notes.adapters;
+package com.mel.notes.ui.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mel.notes.R;
-import com.mel.notes.interfaces.NotesInteractionListener;
-import com.mel.notes.pojos.Note;
+import com.mel.notes.db.entities.Note;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
     private final List<Note> mValues;
-    private final NotesInteractionListener mListener;
+    private Context mContext;
 
-    public MyNoteRecyclerViewAdapter(List<Note> items, NotesInteractionListener listener) {
+    public MyNoteRecyclerViewAdapter(Context context, List<Note> items) {
         mValues = items;
-        mListener = listener;
+        mContext = context;
     }
 
     @Override
@@ -46,9 +46,7 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
         holder.imgFavorite.setImageResource(resourceDrawable);
         holder.txtTitle.setText(holder.mItem.getTitle());
         holder.imgFavorite.setOnClickListener(v -> {
-            if (null != mListener) {
-                mListener.favoriteNoteClick(holder.mItem);
-            }
+
         });
     }
 

@@ -1,4 +1,4 @@
-package com.mel.notes.fragments;
+package com.mel.notes.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mel.notes.R;
-import com.mel.notes.adapters.MyNoteRecyclerViewAdapter;
-import com.mel.notes.interfaces.NotesInteractionListener;
-import com.mel.notes.pojos.Note;
+import com.mel.notes.ui.adapters.MyNoteRecyclerViewAdapter;
+import com.mel.notes.db.entities.Note;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,23 +28,12 @@ public class NoteFragment extends Fragment {
     private int mColumnCount = 2;
     private List<Note> noteList;
     private MyNoteRecyclerViewAdapter noteRecyclerViewAdapter;
-    private NotesInteractionListener notesInteractionListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public NoteFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static NoteFragment newInstance(int columnCount) {
-        NoteFragment fragment = new NoteFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -61,7 +49,6 @@ public class NoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_list, container, false);
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -92,27 +79,9 @@ public class NoteFragment extends Fragment {
                     "Nunc dignissim risus id metus.",false, android.R.color.holo_blue_light));
             noteList.add(new Note("Cumpleaños (fiesta)","No olvidar las velas y la tarta",true, android.R.color.white));
 
-            noteRecyclerViewAdapter=new MyNoteRecyclerViewAdapter(noteList, notesInteractionListener);
+            noteRecyclerViewAdapter=new MyNoteRecyclerViewAdapter(getActivity(),noteList);
             recyclerView.setAdapter(noteRecyclerViewAdapter);
         }
         return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof NotesInteractionListener) {
-            notesInteractionListener = (NotesInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        notesInteractionListener = null;
     }
 }
