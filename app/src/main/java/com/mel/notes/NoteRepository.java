@@ -1,6 +1,7 @@
 package com.mel.notes;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import com.mel.notes.db.NotaRoomDatabase;
 import com.mel.notes.db.daos.NoteDao;
@@ -44,6 +45,19 @@ public class NoteRepository {
     }
 
     public void insert(Note note){
+        new InsertAsyncTask(noteDao).execute(note);
+    }
 
+    //Para el update seria practicamente igual que el insert
+    private static class InsertAsyncTask extends AsyncTask<Note,Void,Void>{
+        private NoteDao notaDaoAsyncTask;
+        public InsertAsyncTask(NoteDao noteDao){
+            notaDaoAsyncTask=noteDao;
+        }
+        @Override
+        protected Void doInBackground(Note... notes) {
+            notaDaoAsyncTask.insert(notes[0]);
+            return null;
+        }
     }
 }

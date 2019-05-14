@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Note> mValues;
+    private List<Note> mValues;
     private Context mContext;
 
     public MyNoteRecyclerViewAdapter(Context context, List<Note> items) {
@@ -37,8 +37,8 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        int color= ContextCompat.getColor(holder.mView.getContext(),holder.mItem.getColor());
-        ((CardView)holder.mView).setCardBackgroundColor(color);
+        //int color= ContextCompat.getColor(holder.mView.getContext(),holder.mItem.getColor());
+        //((CardView)holder.mView).setCardBackgroundColor(color);
         holder.txtTitle.setText(holder.mItem.getTitle());
         holder.txtContent.setText(holder.mItem.getContent());
 
@@ -53,6 +53,11 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void setNuevasNotas(List<Note> noteList){
+        this.mValues=noteList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

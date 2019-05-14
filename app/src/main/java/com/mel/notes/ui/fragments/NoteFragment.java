@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mel.notes.NuevaNotaDialogViewModel;
 import com.mel.notes.R;
 import com.mel.notes.ui.adapters.MyNoteRecyclerViewAdapter;
 import com.mel.notes.db.entities.Note;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -28,6 +31,7 @@ public class NoteFragment extends Fragment {
     private int mColumnCount = 2;
     private List<Note> noteList;
     private MyNoteRecyclerViewAdapter noteRecyclerViewAdapter;
+    private NuevaNotaDialogViewModel mViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,18 +74,28 @@ public class NoteFragment extends Fragment {
             }
 
             noteList=new ArrayList<>();
-            noteList.add(new Note("Lista de la compra","Comprar pan tostado y arroz integral",true, android.R.color.white));
-            noteList.add(new Note("The standard Lorem Ipsum passage, used since the 1500s","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",false, android.R.color.holo_green_light));
-            noteList.add(new Note("Paragraphs","Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.",true, android.R.color.white));
-            noteList.add(new Note("Lists","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n" +
-                    "Aliquam tincidunt mauris eu risus.\n" +
-                    "Vestibulum auctor dapibus neque.\n" +
-                    "Nunc dignissim risus id metus.",false, android.R.color.holo_blue_light));
-            noteList.add(new Note("Cumpleaños (fiesta)","No olvidar las velas y la tarta",true, android.R.color.white));
+
 
             noteRecyclerViewAdapter=new MyNoteRecyclerViewAdapter(getActivity(),noteList);
             recyclerView.setAdapter(noteRecyclerViewAdapter);
+
+            //MEtodo que se va a encargar de decirnos si hay nuevos datos. y en ese medodo
+            //refrescaremos la lista de datos
+            lanzarViewModel();
         }
         return view;
+    }
+
+    private void lanzarViewModel() {
+        mViewModel = ViewModelProviders.of(this).get(NuevaNotaDialogViewModel.class);
+        //Para poder saber si hay nuevas notas, usamos un obeservador.
+        //Es un metodo que esta continuamente esperando una notificacion de cambio de datos y en el momento
+        //en que eso ocurre vamos a recibir la nueva lista de datos
+        mViewModel.getAllNotes().observe(getActivity(), new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                noteRecyclerViewAdapter.setNuevasNotas(notes);
+            }
+        });
     }
 }
