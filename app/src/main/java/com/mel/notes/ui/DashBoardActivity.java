@@ -25,7 +25,6 @@ public class DashBoardActivity extends AppCompatActivity implements BottomNaviga
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         navView.setOnNavigationItemSelectedListener(this);
         getSupportFragmentManager().beginTransaction().add(R.id.container,new NoteFragment()).commit();
     }

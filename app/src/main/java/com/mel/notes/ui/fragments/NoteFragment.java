@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,7 +18,9 @@ import com.mel.notes.db.entities.Note;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,6 +52,9 @@ public class NoteFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        //Indicamos que el fragmento tiene un menu de opciones propio
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -97,5 +105,27 @@ public class NoteFragment extends Fragment {
                 noteRecyclerViewAdapter.setNuevasNotas(notes);
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu_note_fragment,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add_note:
+                mostrarDialogNuevaNota();
+                return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void mostrarDialogNuevaNota() {
+        FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+        NuevaNotaDialogFragment dialogNuevaNota=new NuevaNotaDialogFragment();
+        dialogNuevaNota.show(fragmentManager,"NuevaNotaDialogFragment");
     }
 }

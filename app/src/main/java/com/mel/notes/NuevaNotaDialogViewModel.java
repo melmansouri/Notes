@@ -2,13 +2,12 @@ package com.mel.notes;
 
 import android.app.Application;
 
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.mel.notes.db.entities.Note;
 
 import java.util.List;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 /**
  * Nos permite intercomunicar fragmentos para transferir datos de unos a otros. Eso simplifica mucho lo que veniamos haciendo
