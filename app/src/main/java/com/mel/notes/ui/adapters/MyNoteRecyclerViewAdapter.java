@@ -7,22 +7,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mel.notes.NuevaNotaDialogViewModel;
 import com.mel.notes.R;
 import com.mel.notes.db.entities.Note;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
     private List<Note> mValues;
     private Context mContext;
+    private NuevaNotaDialogViewModel viewModel;
 
     public MyNoteRecyclerViewAdapter(Context context) {
         mValues = new ArrayList<>();
         mContext = context;
+        viewModel= ViewModelProviders.of((AppCompatActivity)context).get(NuevaNotaDialogViewModel.class);
     }
 
     @Override
@@ -45,7 +50,14 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
         holder.imgFavorite.setImageResource(resourceDrawable);
         holder.txtTitle.setText(holder.mItem.getTitle());
         holder.imgFavorite.setOnClickListener(v -> {
-
+            if (holder.mItem.isFavorite()){
+                holder.mItem.setFavorite(false);
+                holder.imgFavorite.setImageResource(R.drawable.ic_favorite);
+            }else{
+                holder.mItem.setFavorite(true);
+                holder.imgFavorite.setImageResource(R.drawable.ic_no_favorite);
+            }
+            viewModel.updateNote(holder.mItem);
         });
     }
 

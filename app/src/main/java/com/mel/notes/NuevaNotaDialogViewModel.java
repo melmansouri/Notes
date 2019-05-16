@@ -34,4 +34,8 @@ public class NuevaNotaDialogViewModel extends AndroidViewModel {
     public void insertNote(Note note){
         repository.insert(note);
     }
+
+    public void updateNote(Note note){
+        repository.update(note);
+    }
 }

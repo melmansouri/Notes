@@ -60,4 +60,20 @@ public class NoteRepository {
             return null;
         }
     }
+
+    private static class UpdateAsyncTask extends AsyncTask<Note,Void,Void>{
+        private NoteDao notaDaoAsyncTask;
+        public UpdateAsyncTask(NoteDao noteDao){
+            notaDaoAsyncTask=noteDao;
+        }
+        @Override
+        protected Void doInBackground(Note... notes) {
+            notaDaoAsyncTask.update(notes[0]);
+            return null;
+        }
+    }
+
+    public void update(Note note){
+        new UpdateAsyncTask(noteDao).execute(note);
+    }
 }
