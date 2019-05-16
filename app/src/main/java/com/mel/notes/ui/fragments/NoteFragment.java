@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 
 import com.mel.notes.NuevaNotaDialogViewModel;
 import com.mel.notes.R;
-import com.mel.notes.ui.adapters.MyNoteRecyclerViewAdapter;
 import com.mel.notes.db.entities.Note;
+import com.mel.notes.ui.adapters.MyNoteRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -34,7 +33,6 @@ public class NoteFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 2;
-    private List<Note> noteList;
     private MyNoteRecyclerViewAdapter noteRecyclerViewAdapter;
     private NuevaNotaDialogViewModel mViewModel;
 
@@ -81,10 +79,8 @@ public class NoteFragment extends Fragment {
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(numeroColumnas,StaggeredGridLayoutManager.VERTICAL));
             }
 
-            noteList=new ArrayList<>();
 
-
-            noteRecyclerViewAdapter=new MyNoteRecyclerViewAdapter(getActivity(),noteList);
+            noteRecyclerViewAdapter=new MyNoteRecyclerViewAdapter(getActivity());
             recyclerView.setAdapter(noteRecyclerViewAdapter);
 
             //MEtodo que se va a encargar de decirnos si hay nuevos datos. y en ese medodo
@@ -96,7 +92,7 @@ public class NoteFragment extends Fragment {
 
     private void lanzarViewModel() {
         mViewModel = ViewModelProviders.of(this).get(NuevaNotaDialogViewModel.class);
-        //Para poder saber si hay nuevas notas, usamos un obeservador.
+        //Para poder saber si hay nuevas notas, usamos un obeservador para observar los datos encapsulados en livedata(observable).
         //Es un metodo que esta continuamente esperando una notificacion de cambio de datos y en el momento
         //en que eso ocurre vamos a recibir la nueva lista de datos
         mViewModel.getAllNotes().observe(getActivity(), new Observer<List<Note>>() {

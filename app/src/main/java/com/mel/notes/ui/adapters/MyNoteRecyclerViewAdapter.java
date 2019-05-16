@@ -10,10 +10,9 @@ import android.widget.TextView;
 import com.mel.notes.R;
 import com.mel.notes.db.entities.Note;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
@@ -21,8 +20,8 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     private List<Note> mValues;
     private Context mContext;
 
-    public MyNoteRecyclerViewAdapter(Context context, List<Note> items) {
-        mValues = items;
+    public MyNoteRecyclerViewAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
     }
 

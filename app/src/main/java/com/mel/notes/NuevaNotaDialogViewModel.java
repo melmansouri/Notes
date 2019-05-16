@@ -13,6 +13,9 @@ import androidx.lifecycle.LiveData;
  * Nos permite intercomunicar fragmentos para transferir datos de unos a otros. Eso simplifica mucho lo que veniamos haciendo
  * de la implementacion de interfaces
  * Es un matron de arquitectura valido y muy recomendable
+ * Es como un presenter
+ * ViewModel Contiene todo la informacion de una activity o fragment para que no se pierdan al hacer por ejemplo el giro de la pantalla
+ * y ademas ahi va toda la logica de negocio y desde ahi se accede a los datos que estan encapsulados en livedata para poder tener los datos siempre actualizados
  */
 public class NuevaNotaDialogViewModel extends AndroidViewModel {
     private LiveData<List<Note>> allNotes;
