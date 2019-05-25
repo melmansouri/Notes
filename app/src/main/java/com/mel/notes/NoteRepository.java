@@ -28,7 +28,7 @@ public class NoteRepository {
         noteDao=db.noteDao();
         //#1
         allNotes=noteDao.getAll();
-        allNotes=noteDao.getAllFavorites();
+        allFavorites=noteDao.getAllFavorites();
     }
 
 
